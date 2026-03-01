@@ -33,6 +33,12 @@ def reconstruct_cartesian(signal, n_read, n_phase):
         k-space matrix, shape (n_read, n_phase).
     """
     signal = np.asarray(signal)
+    if signal.size != n_read * n_phase:
+        raise ValueError(
+            f"signal length {signal.size} does not match "
+            f"n_read * n_phase = {n_read * n_phase}"
+        )
+    # Reshape: each contiguous block of n_read samples is one phase-encode line
     kspace = signal.reshape(n_phase, n_read).T  # (n_read, n_phase)
 
     # 2-D FFT with fftshift for centred image

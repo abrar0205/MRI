@@ -249,7 +249,7 @@ def random_undersampling_mask(n_phase, acceleration_factor=4,
         Boolean mask, shape (n_phase,).
     """
     rng = np.random.RandomState(seed)
-    n_target = max(n_phase // acceleration_factor, acs_lines)
+    n_target = min(max(n_phase // acceleration_factor, acs_lines), n_phase)
 
     # Variable density: higher probability near centre
     line_indices = np.arange(n_phase)

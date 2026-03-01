@@ -280,10 +280,9 @@ class BlochSimulator:
                     ky += GAMMA_RAD * gy * (dt_sample / 2) / (2 * np.pi)
 
                     # Apply phase offset for ADC
-                    phase_offset = event.phase_offset if event.phase_offset else 0.0
                     sample = self.readout()
-                    if phase_offset != 0.0:
-                        sample *= np.exp(-1j * phase_offset)
+                    if event.phase_offset != 0.0:
+                        sample *= np.exp(-1j * event.phase_offset)
                     signal_list.append(sample)
                     kspace_list.append([kx, ky])
 
